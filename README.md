@@ -32,13 +32,13 @@ To run StoreSpotter locally, install the Bundler gem to retrieve all dependencie
 
 ----
 
-## Coding challenge
+#### Coding challenge
 
 In this repo there is store-locations.csv
 
 This is a tabular dataset of the locations of every store of a major national retail chain.
 
-## Deliverables
+#### Deliverables
 
 Please download the file (rather than forking this repo) and, do the exercise, and then upload to your own repo.
 
@@ -52,7 +52,7 @@ Also please write up a paragraph or two about how your solution works, any assum
 
 Send me a github link to the final project.
 
-## Notes
+#### Notes
 
 Feel free to do this in whatever language you would like, and focus on the problem itself; the way data gets input into the program is not important. Command line, GUI application, or even editing an obvious variable at the top of a file. Whatever. As long as it's reasonably easy for me to run your code and there are clear instructions for doing so.
 
