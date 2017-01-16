@@ -1,7 +1,5 @@
 # StoreSpotter
 
-*Under Construction: Still updating README*
-
 ```
    _____ __                 _____             __  __
   / ___// /_____  ________ / ___/____  ____  / /_/ /____  _____
