@@ -20,12 +20,15 @@ class StoreHelper
 
   def get_closest(store_candidates)
     input_coords = [@input_address['lat'], @input_address['lng']]
-
     closest_store = store_candidates.first
-    closest_distance = Haversine.distance(input_coords, [closest_store.latitude, closest_store.longitude].map(&:to_f)).to_miles
+    closest_distance = Haversine.distance(input_coords,
+                                          [closest_store.latitude, closest_store.longitude].map(&:to_f)
+                                          ).to_miles
 
     store_candidates.each do |store|
-      distance = Haversine.distance(input_coords, [store.latitude, store.longitude].map(&:to_f)).to_miles
+      distance = Haversine.distance(input_coords,
+                                    [store.latitude, store.longitude].map(&:to_f)
+                                    ).to_miles
       if closest_distance > distance
         closest_store = store
         closest_distance = distance
