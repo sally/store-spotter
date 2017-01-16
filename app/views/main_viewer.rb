@@ -20,6 +20,7 @@ module MainViewer
 
   def self.show_store(store)
     puts "\nYour closest store is:"
+    FormattingHelper.format_address(store)
   end
 
   def self.bye
