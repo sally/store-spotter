@@ -1,5 +1,9 @@
 class MainController
 
+  def initialize
+    @store_helper = StoreHelper.new
+  end
+
   def run
     MainViewer.welcome
     get_store
@@ -13,8 +17,9 @@ class MainController
     if user_input == "exit"
       MainViewer.bye
     else
+      closest_store = @store_helper.find_store(user_input)
       get_store
     end
   end
-  
+
 end
