@@ -58,6 +58,9 @@ namespace :db do
   desc "Drop, create, and migrate the database"
   task :reset => [:drop, :create, :migrate]
 
+  desc "Create, migrate, seed database upon first usage"
+  task :setup => [:create, :migrate, :seed]
+
   desc "Create the databases at #{DB_NAME}"
   task :create do
     puts "Creating development and test databases if they don't exist..."
@@ -86,7 +89,7 @@ namespace :db do
     Rake::Task['db:version'].invoke if Rake::Task['db:version']
   end
 
-  desc "Populate the database with dummy data by running db/seeds.rb"
+  desc "Populate the database with appropriate data by running db/seeds.rb"
   task :seed do
     require APP_ROOT.join('db', 'seeds.rb')
   end
@@ -94,13 +97,6 @@ namespace :db do
   desc "Returns the current schema version number"
   task :version do
     puts "Current version: #{ActiveRecord::Migrator.current_version}"
-  end
-
-  namespace :test do
-    desc "Migrate test database"
-    task :prepare do
-      system "rake db:migrate RACK_ENV=test"
-    end
   end
 end
 
