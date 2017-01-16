@@ -1,6 +1,27 @@
 # StoreSpotter
 
+```
+_____ __                 _____             __  __
+/ ___// /_____  ________ / ___/____  ____  / /_/ /____  _____
+\__ \/ __/ __ \/ ___/ _ \\__ \/ __ \/ __ \/ __/ __/ _ \/ ___/
+___/ / /_/ /_/ / /  /  __/__/ / /_/ / /_/ / /_/ /_/  __/ /
+/____/\__/\____/_/   \___/____/ .___/\____/\__/\__/\___/_/
+                          /_/
+```
 
+Welcome to StoreSpotter, the leading tool for finding the retail store nearest to you.
+
+## How It Works
+
+
+
+## Local Usage
+
+To run StoreSpotter locally, install the Bundler gem to retrieve all dependencies, then execute `storespotter.rb`:
+
+1. Run `gem install bundler` to install the Bundler gem manager
+2. Run `bundle install` to install dependencies
+3. Run `ruby storespotter.rb` to initiate StoreSpotter
 
 ----
 
