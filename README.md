@@ -1,6 +1,34 @@
 # StoreSpotter
 
+```
+  _____ __                 _____             __  __
+ / ___// /_____  ________ / ___/____  ____  / /_/ /____  _____
+ \__ \/ __/ __ \/ ___/ _ \\__ \/ __ \/ __ \/ __/ __/ _ \/ ___/
+ ___/ / /_/ /_/ / /  /  __/__/ / /_/ / /_/ / /_/ /_/  __/ /
+/____/\__/\____/_/   \___/____/ .___/\____/\__/\__/\___/_/
+                              /_/
+```
 
+Welcome to StoreSpotter, the leading tool for finding the nearest retail store.
+
+## How It Works
+
+My primary focus in completing this project was achieving time efficiency in querying the database of stores that I created from the CSV file.
+
+The rough idea is that, given an address, the program will attempt to refine the entire list of ~1800 stores to a much shorter list to iterate through and check distances against by finding stores in the immediate proximity of the input address.
+
+More specifically, if I enter `633 Folsom St, San Francisco, CA 94107`, the program will look for all stores with the zip code `94107` and find the one closest to the input using lat/lng coordinates. If it can't find any stores with that zip code, it will look for stores in the city `San Francisco`, and determine the nearest one. If it can't find any stores in that city, it will look for stores in the county `San Francisco County` ... etc.
+
+Some important Ruby libraries I used were [Geocoder](https://github.com/alexreisner/geocoder) and [Haversine](https://github.com/kristianmandrup/haversine). The former was to retrieve location information (including lat/lng) for an input address, and the latter was to accurately calculate great-circle distance between two points (i.e. shortest distance over the earth's surface) given the lat/lng coordinates of the respective points.
+
+## Local Usage
+
+To run StoreSpotter locally, install the Bundler gem to retrieve all dependencies, set up the database, then execute `storespotter.rb`:
+
+1. Run `gem install bundler` to install the Bundler gem manager
+2. Run `bundle install` to install dependencies
+3. Run `rake db:setup` to set up the database
+4. Run `ruby storespotter.rb` to initiate StoreSpotter
 
 ----
 
