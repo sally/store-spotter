@@ -1,5 +1,4 @@
 module MainViewer
-
   def self.welcome
     system "clear"
     banner = "   _____ __                 _____             __  __
@@ -19,12 +18,12 @@ module MainViewer
     gets.chomp
   end
 
-  def self.show_store
-
+  def self.show_store(store)
+    puts "\nYour closest store is:"
+    FormattingHelper.format_address(store)
   end
 
   def self.bye
     puts "Thanks for using StoreSpotter. :)"
   end
-
 end
