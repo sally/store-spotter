@@ -9,7 +9,7 @@ module MainViewer
                              /_/
     "
     puts banner
-    puts "Find the nearest retail store near you."
+    puts "Find the nearest retail store to your location."
   end
 
   def self.ask_address
