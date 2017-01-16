@@ -11,7 +11,7 @@ class StoreHelper
 
   def filter_stores
     @@filters.each do |filter|
-      stores = Store.where("#{filter} ~* ?", "(#{@input_address[filter]}.*)")
+      stores = Store.where("#{filter} ~* ? AND state ~* ?", "(#{@input_address[filter]}.*)", "(#{@input_address['state']}.*)")
       return stores if !stores.empty?
     end
 
