@@ -18,7 +18,7 @@ class StoreHelper
     Store.all
   end
 
-  def get_closest
+  def get_closest(store_candidates)
     input_coords = [@input_address['lat'], @input_address['lng']]
 
     closest_store = store_candidates.first
