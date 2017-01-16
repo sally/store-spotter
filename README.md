@@ -9,7 +9,7 @@
                               /_/
 ```
 
-Welcome to StoreSpotter, a simple tool for finding the nearest retail store.
+Welcome to StoreSpotter, a simple command-line tool for finding the nearest retail store.
 
 ## How It Works
 
