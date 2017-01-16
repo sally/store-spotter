@@ -3,9 +3,9 @@
 *Under Construction: Still updating README*
 
 ```
-  _____ __                 _____             __  __
- / ___// /_____  ________ / ___/____  ____  / /_/ /____  _____
- \__ \/ __/ __ \/ ___/ _ \\__ \/ __ \/ __ \/ __/ __/ _ \/ ___/
+   _____ __                 _____             __  __
+  / ___// /_____  ________ / ___/____  ____  / /_/ /____  _____
+  \__ \/ __/ __ \/ ___/ _ \\__ \/ __ \/ __ \/ __/ __/ _ \/ ___/
  ___/ / /_/ /_/ / /  /  __/__/ / /_/ / /_/ / /_/ /_/  __/ /
 /____/\__/\____/_/   \___/____/ .___/\____/\__/\__/\___/_/
                               /_/
@@ -35,36 +35,40 @@ To run StoreSpotter locally, please download the files, install the Bundler gem 
 
 ----
 
-#### Coding challenge
+## Notes
 
-In this repo there is store-locations.csv
+I'd like to document a bug that I found and resolved shortly after writing this README.
 
-This is a tabular dataset of the locations of every store of a major national retail chain.
+I noticed that there are no stores in VT (Vermont) in the store locations CSV file. Curious to see what would happen, I looked up the first random VT address I could find: `S Prospect St, Burlington, VT 05405`. I expected to get something in one of its neighboring states, which are New York and New Hampshire. Instead, I got:
 
-#### Deliverables
+```
+Burlington
+NWC NJ Trnpk & Rte 541
+2703 Route 541
+Burlington, NJ 08016-4175
+```
 
-Please download the file (rather than forking this repo) and, do the exercise, and then upload to your own repo.
+I immediately knew it was because I'd neglected to account for the fact that there are [many cities with the same name](https://en.wikipedia.org/wiki/List_of_the_most_common_U.S._place_names) in different states - as well as [counties](https://en.wikipedia.org/wiki/List_of_the_most_common_U.S._county_names).
 
-Then, write a script or application that, given a reasonably well-formed address string like:
+To fix this, I found the query I was making to my database to narrow down stores by zip code, city, county, and state in that order:
 
-1770 Union St, San Francisco, CA 94115
+```ruby
+Store.where("#{filter} ~* ?", "(#{@input_address[filter]}.*)")
+```
 
-Returns the address of the geographically closest store from the dataset.
+and modified it so that we'd be filtering by cities, counties in the same state if we didn't find any stores in the given zip code:
 
-Also please write up a paragraph or two about how your solution works, any assumptions you made, or caveats about your implementation, and put it in this readme file.
+```ruby
+Store.where("#{filter} ~* ? AND state ~* ?", "(#{@input_address[filter]}.*)", "(#{@input_address['state']}.*)")
+```
 
-Send me a github link to the final project.
+It seems to have fixed the problem beautifully. Now when I ask StoreSpotter for `S Prospect St, Burlington, VT 05405`, I get:
 
-#### Notes
+```
+Plattsburgh
+NEC I-87 & State Hwy 3
+60 Smithfield Blvd
+Plattsburgh, NY 12901-2151
+```
 
-Feel free to do this in whatever language you would like, and focus on the problem itself; the way data gets input into the program is not important. Command line, GUI application, or even editing an obvious variable at the top of a file. Whatever. As long as it's reasonably easy for me to run your code and there are clear instructions for doing so.
-
-You might need to use external APIs or services to get a working solution. That's fine. Also fine to make it work entirely offline. To the extent you need any algorithms, I'm obviously not expecting you to reinvent anything from scratch, so use Google judiciously, as well as any libraries you find.
-
-If you do add cool polish or go above an beyond in some way, feel free, but *by far the most important thing is delivering working software that solves the problem of finding the closest location of this store*.
-
-I know which one is closest to my house, and the first thing I'll do is verify that it returns the address I expect.
-
-I'm hoping this will take well under 2 hours; I did it in a language I know well and (with about 12 tabs open and tons of google searching) got a rough implementation working very quickly.
-
-There are a ton of different ways to do this -- be creative!
+which is indeed the closest store, and also around 300 miles closer in driving distance than the previous result.
