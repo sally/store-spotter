@@ -1,4 +1,4 @@
-module GeocodeService
+module GeocoderService
 
   def self.address_info(geocoder_search)
     info = {}
