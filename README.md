@@ -19,16 +19,17 @@ The rough idea is that, given an address, the program will attempt to refine the
 
 More specifically, if I enter `633 Folsom St, San Francisco, CA 94107`, the program will look for all stores with the zip code `94107` and find the one closest to the input using lat/lng coordinates. If it can't find any stores with that zip code, it will look for stores in the city `San Francisco`, and determine the nearest one. If it can't find any stores in that city, it will look for stores in the county `San Francisco County` ... etc.
 
-Some important Ruby libraries I used were [Geocoder](https://github.com/alexreisner/geocoder) and [Haversine](https://github.com/kristianmandrup/haversine). The former was to retrieve location information (including lat/lng) for an input address, and the latter was to accurately calculate great-circle distance between two points (i.e. shortest distance over the earth's surface) given the lat/lng coordinates of the respective points.
+Some key Ruby libraries I used were [Geocoder](https://github.com/alexreisner/geocoder) and [Haversine](https://github.com/kristianmandrup/haversine). The former was to retrieve location information (including lat/lng) for an input address, and the latter was to accurately calculate great-circle distance between two points (i.e. shortest distance over the earth's surface) given the lat/lng coordinates of the respective points.
 
 ## Local Usage
 
-To run StoreSpotter locally, install the Bundler gem to retrieve all dependencies, set up the database, then execute `storespotter.rb`:
+To run StoreSpotter locally, please download the files, install the Bundler gem to retrieve all dependencies, set up the database, then execute `storespotter.rb`:
 
-1. Run `gem install bundler` to install the Bundler gem manager
-2. Run `bundle install` to install dependencies
-3. Run `rake db:setup` to set up the database
-4. Run `ruby storespotter.rb` to initiate StoreSpotter
+1. [Download](https://github.com/parkyngj/geo-challenge/archive/master.zip) the files
+2. Run `gem install bundler` to install the Bundler gem manager
+3. Run `bundle install` to install dependencies
+4. Run `rake db:setup` to set up the database
+5. Run `ruby storespotter.rb` to initiate StoreSpotter
 
 ----
 
