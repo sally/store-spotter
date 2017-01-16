@@ -19,6 +19,7 @@ require 'pg'
 require 'active_record'
 require 'rake'
 require 'geocoder'
+require 'haversine'
 
 # Helper constants for path-centric logic
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))

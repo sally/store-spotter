@@ -16,3 +16,6 @@ gem 'awesome_print'
 
 # Forward and reverse geocoding using Google Maps
 gem 'geocoder', '~>1.4.1'
+
+# Calculate Haversine distance between two points given respective longitudes and latitudes
+gem 'haversine', '~>0.3.2'
