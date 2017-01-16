@@ -1,5 +1,7 @@
 # StoreSpotter
 
+*Under Construction: Still updating README*
+
 ```
   _____ __                 _____             __  __
  / ___// /_____  ________ / ___/____  ____  / /_/ /____  _____
@@ -17,7 +19,7 @@ My primary focus in completing this project was achieving time efficiency in que
 
 The rough idea is that, given an address, the program will attempt to refine the entire list of ~1800 stores to a much shorter list to iterate through and check distances against by finding stores in the immediate proximity of the input address.
 
-More specifically, if I enter `633 Folsom St, San Francisco, CA 94107`, the program will look for all stores with the zip code `94107` and find the one closest to the input using lat/lng coordinates. If it can't find any stores with that zip code, it will look for stores in the city `San Francisco`, and determine the nearest one. If it can't find any stores in that city, it will look for stores in the county `San Francisco County` ... etc.
+More specifically, if I enter `633 Folsom St, San Francisco, CA 94107`, the program will look for all stores with the zip code `94107` and find the one closest to the input using lat/lng coordinates. If it can't find any stores with that zip code, it will look for stores in the city `San Francisco`, and determine the nearest one. If it can't find any stores in that city, it will look for stores in the county `San Francisco County` ... etc. The bulk of this process can be seen [here](https://github.com/parkyngj/geo-challenge/blob/master/app/helpers/store_helper.rb).
 
 Some key Ruby libraries I used were [Geocoder](https://github.com/alexreisner/geocoder) and [Haversine](https://github.com/kristianmandrup/haversine). The former was to retrieve location information (including lat/lng) for an input address, and the latter was to accurately calculate great-circle distance between two points (i.e. shortest distance over the earth's surface) given the lat/lng coordinates of the respective points.
 
