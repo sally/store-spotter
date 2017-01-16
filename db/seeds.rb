@@ -1,0 +1,1 @@
+StoreImporter.import_stores
