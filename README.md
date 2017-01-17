@@ -108,7 +108,7 @@ def get_closest_store_no_filter
                                           [closest_store.latitude, closest_store.longitude].map(&:to_f)
                                           ).to_miles
 
-    Store.all.each do |store| # We iterate through every single store to check Haversine distances against
+    Store.all.each do |store| # Iterate through every store to check Haversine distances against
       distance = Haversine.distance(input_coords,
                                     [store.latitude, store.longitude].map(&:to_f)
                                     ).to_miles
