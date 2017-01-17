@@ -1,6 +1,8 @@
 module GeocoderService
 
   def self.address_info(geocoder_search)
+    return nil if geocoder_search.empty?
+    
     info = {}
 
     geocoder_search[0].data["address_components"].each do |component|

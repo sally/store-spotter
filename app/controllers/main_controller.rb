@@ -18,7 +18,12 @@ class MainController
       MainViewer.bye
     else
       closest_store = @store_helper.find_store(user_input)
-      MainViewer.show_store(closest_store)
+      if closest_store.nil?
+        MainViewer.display_error
+      else
+        MainViewer.show_store(closest_store)
+      end
+
       get_store
     end
   end
