@@ -18,6 +18,10 @@ module MainViewer
     gets.chomp
   end
 
+  def self.display_error
+    puts "\nInput address not found in Google Maps. Please reformat your input or try another address."
+  end
+
   def self.show_store(store)
     puts "\nYour closest store is:"
     FormattingHelper.format_address(store)

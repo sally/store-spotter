@@ -4,6 +4,7 @@ class StoreHelper
 
   def find_store(input_address)
     @input_address = GeocoderService.address_info(Geocoder.search(input_address))
+    return if @input_address.nil?
     get_closest(filter_stores)
   end
 
