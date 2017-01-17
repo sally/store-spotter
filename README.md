@@ -51,13 +51,16 @@ I immediately knew it was because I'd neglected to account for the fact that the
 To fix this, I found the query I was making to my database to narrow down stores by zip code, city, county, and state in that order:
 
 ```ruby
-Store.where("#{filter} ~* ?", "(#{@input_address[filter]}.*)")
+Store.where("#{filter} ~* ?",
+            "(#{@input_address[filter]}.*)")
 ```
 
 and modified it so that we'd be filtering by cities, counties in the same state if we didn't find any stores in the given zip code:
 
 ```ruby
-Store.where("#{filter} ~* ? AND state ~* ?", "(#{@input_address[filter]}.*)", "(#{@input_address['state']}.*)")
+Store.where("#{filter} ~* ? AND state ~* ?",
+            "(#{@input_address[filter]}.*)",
+            "(#{@input_address['state']}.*)")
 ```
 
 It seems to have fixed the problem beautifully. Now when I ask StoreSpotter for `S Prospect St, Burlington, VT 05405`, I get:
