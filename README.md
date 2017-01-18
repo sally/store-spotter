@@ -31,7 +31,7 @@ To run StoreSpotter locally, please download the files, install the Bundler gem 
 
 ----
 
-## Notes
+## Remarks
 
 Here are some tidbits that I felt compelled to write regarding my process in completing the challenge. Feel free to read them. I had a lot of fun!
 
