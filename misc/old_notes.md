@@ -1,6 +1,6 @@
 # Old Notes From Previous Implementation
 
-Here are some old notes that were featured on this README from the reign of the previous efficient, inaccurate solution before its exposure.
+Here are some old notes that were featured on the README from the reign of the previous efficient, inaccurate solution before its exposure.
 
 ## About Solution
 
