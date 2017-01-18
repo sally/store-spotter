@@ -47,7 +47,7 @@ Could there be other ways to narrow down the possible stores to iterate through 
 
 Either way, I'd probably need to use more machinery in terms of API integration to find zips/cities/counties/states within a certain radius of a given location. I'm sure I could use the Google Maps API to do this, although [ZipCodeAPI](https://www.zipcodeapi.com/API) and [FreeMapTools](https://www.freemaptools.com/find-zip-codes-inside-radius.htm) also looked promising.
 
-Some old notes that were featured on this README from the reign of the previous implementation can be found [here]()
+Some old notes that were featured on this README from the reign of the previous implementation can be found [here](/misc/old_notes.md).
 
 ### Haversine VS Navigable Distance
 
