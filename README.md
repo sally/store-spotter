@@ -35,49 +35,7 @@ To run StoreSpotter locally, please download the files, install the Bundler gem 
 
 ## Notes
 
-Here are some optional tidbits to read about my process in completing the challenge.
-
-### Burlington
-
-I'd like to document a (now-resolved) bug that I found shortly after I finished uploading the files. 
-
-I noticed that there are no stores in VT (Vermont) in the store locations CSV file. Curious to see what would happen, I looked up the first random VT address I could find: `S Prospect St, Burlington, VT 05405`. I expected to get something in one of its neighboring states, which are New York and New Hampshire. Instead, I got:
-
-```
-Burlington
-NWC NJ Trnpk & Rte 541
-2703 Route 541
-Burlington, NJ 08016-4175
-```
-
-I immediately knew it was because I'd neglected to account for the fact that there are [many cities with the same name](https://en.wikipedia.org/wiki/List_of_the_most_common_U.S._place_names) in different states - as well as [counties](https://en.wikipedia.org/wiki/List_of_the_most_common_U.S._county_names). Basically, the database didn't contain any store with the zipcode `05405`, so it widened its search for stores in the city `Burlington`, but not Burlingtons in VT.
-
-To try to fix this, I found the query I was making to my database to narrow down stores by zip code, city, county, and state in that order:
-
-```ruby
-# using PostgreSQL case insensitive pattern matching to complete the filter
-Store.where("#{filter} ~* ?",
-            "(#{@input_address[filter]}.*)")
-```
-
-and modified it so that we'd be filtering by cities, counties in the same state if we didn't find any stores in the given zip code:
-
-```ruby
-Store.where("#{filter} ~* ? AND state ~* ?",
-            "(#{@input_address[filter]}.*)",
-            "(#{@input_address['state']}.*)")
-```
-
-It seems to have fixed the problem beautifully. Now when I ask StoreSpotter for `S Prospect St, Burlington, VT 05405`, I get:
-
-```
-Plattsburgh
-NEC I-87 & State Hwy 3
-60 Smithfield Blvd
-Plattsburgh, NY 12901-2151
-```
-
-which is indeed the closest store, and also around 300 miles closer in driving distance than the previous result.
+Here are some tidbits that I felt compelled to write regarding my process in completing the challenge. Feel free to read them. I had a lot of fun!
 
 ### Benchmarking
 
@@ -125,3 +83,45 @@ def get_closest_store_no_filter
 Using [this website](https://fakena.me/random-real-address/) to generate random valid U.S. addresses, I [benchmarked fifty results](https://docs.google.com/spreadsheets/d/1D33FpYXzKfzVD6iWTSNfltRSymQ3iNXoz6xE4j1DRPo/edit?usp=sharing) to discover that going through the filtering process averaged about 40% better runtime than not filtering.
 
 This disparity would likely grow with the addition of more stores into the database.
+
+### Burlington
+
+I'd like to document a (now-resolved) bug that I found shortly after I finished uploading the files. 
+
+I noticed that there are no stores in VT (Vermont) in the store locations CSV file. Curious to see what would happen, I looked up the first random VT address I could find: `S Prospect St, Burlington, VT 05405`. I expected to get something in one of its neighboring states, which are New York and New Hampshire. Instead, I got:
+
+```
+Burlington
+NWC NJ Trnpk & Rte 541
+2703 Route 541
+Burlington, NJ 08016-4175
+```
+
+I immediately knew it was because I'd neglected to account for the fact that there are [many cities with the same name](https://en.wikipedia.org/wiki/List_of_the_most_common_U.S._place_names) in different states - as well as [counties](https://en.wikipedia.org/wiki/List_of_the_most_common_U.S._county_names). Basically, the database didn't contain any store with the zipcode `05405`, so it widened its search for stores in the city `Burlington`, but not Burlingtons in VT.
+
+To try to fix this, I found the query I was making to my database to narrow down stores by zip code, city, county, and state in that order:
+
+```ruby
+# using PostgreSQL case insensitive pattern matching to complete the filter
+Store.where("#{filter} ~* ?",
+            "(#{@input_address[filter]}.*)")
+```
+
+and modified it so that we'd be filtering by cities, counties in the same state if we didn't find any stores in the given zip code:
+
+```ruby
+Store.where("#{filter} ~* ? AND state ~* ?",
+            "(#{@input_address[filter]}.*)",
+            "(#{@input_address['state']}.*)")
+```
+
+It seems to have fixed the problem beautifully. Now when I ask StoreSpotter for `S Prospect St, Burlington, VT 05405`, I get:
+
+```
+Plattsburgh
+NEC I-87 & State Hwy 3
+60 Smithfield Blvd
+Plattsburgh, NY 12901-2151
+```
+
+which is indeed the closest store, and also around 300 miles closer in driving distance than the previous result.
