@@ -13,7 +13,7 @@ Welcome to StoreSpotter, a simple command-line tool for finding the nearest reta
 
 ## How It Works
 
-The stores in the CSV file were imported into a PostgreSQL database, where each data field (e.g. City, State, Longitude, Latitude, etc.) were stored as column entries. I then used ActiveRecord for object-relational mapping to easily access all of the stores in the Ruby source code.
+The stores in the CSV file were imported into a PostgreSQL database, where each data field (e.g. City, State, Longitude, Latitude, etc.) was stored as a column entry. I then used ActiveRecord for object-relational mapping to easily access all of the stores in the Ruby source code.
 
 Given an input address that is reasonably well-formatted, we retrieve further details of the location using geocoding and check great circle distances against each Store object using [Haversine's formula](https://en.wikipedia.org/wiki/Haversine_formula) and lat/lng coordinates. The store with the least Haversine distance from the input address is returned.
 
@@ -23,6 +23,7 @@ Some key Ruby libraries I used were [Geocoder](https://github.com/alexreisner/ge
 
 To run StoreSpotter locally, please download the files, install the Bundler gem to retrieve all dependencies, set up the database, then execute `storespotter.rb`:
 
+0. [Download Ruby](https://www.ruby-lang.org/en/downloads/) to your machine (2.3.1 or above)
 1. [Download](https://github.com/parkyngj/geo-challenge/archive/master.zip) the files
 2. Run `gem install bundler` to install the Bundler gem manager
 3. Run `bundle install` to install dependencies
@@ -41,7 +42,7 @@ Previously, I had implemented a version of my project where I attempted to narro
 
 However, I realized that this approach may actually return inaccurate information regarding what is the "closest store." Consider the following situation:
 
-A store and the input address are on opposite ends of the zip code region that they belong to. However, there is a store across the street from the input address, which just happens to be in an adjacent zip code region. The approach above would return the store farther away anyway, because of the happenstance of the two locations in question being in the same zip code.
+A store and the input address are on opposite ends of the zip code region that they belong to. However, there is a store across the street from the input address, which just happens to be in an adjacent, distinct zip code region. The approach above would return the store farther away anyway, because of the happenstance of the two locations in question being in the same zip code.
 
 Could there be other ways to narrow down the possible stores to iterate through and check Haversine distances against? Perhaps filtering by the zip/city/county/state that an input address belongs to is too strict. We could instead filter by, for example, zip code + all adjacent zip codes. Another idea is to filter by zip codes within a certain radius of the location.
 
